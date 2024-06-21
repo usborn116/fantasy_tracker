@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @trade_machine %>
+
+<div>
+  <%= link_to "Edit this trade machine", edit_trade_machine_path(@trade_machine) %> |
+  <%= link_to "Back to trade machines", trade_machines_path %>
+
+  <%= button_to "Destroy this trade machine", @trade_machine, method: :delete %>
+</div>

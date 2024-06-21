@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Draft picks</h1>
+
+<div id="draft_picks">
+  <% @draft_picks.each do |draft_pick| %>
+    <%= render draft_pick %>
+    <p>
+      <%= link_to "Show this draft pick", draft_pick %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New draft pick", new_draft_pick_path %>

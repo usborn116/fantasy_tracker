@@ -1,0 +1,2 @@
+module TradeMachinesHelper
+end

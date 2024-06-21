@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Trade machines</h1>
+
+<div id="trade_machines">
+  <% @trade_machines.each do |trade_machine| %>
+    <%= render trade_machine %>
+    <p>
+      <%= link_to "Show this trade machine", trade_machine %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New trade machine", new_trade_machine_path %>

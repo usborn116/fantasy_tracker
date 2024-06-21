@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Team seasons</h1>
+
+<div id="team_seasons">
+  <% @team_seasons.each do |team_season| %>
+    <%= render team_season %>
+    <p>
+      <%= link_to "Show this team season", team_season %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New team season", new_team_season_path %>

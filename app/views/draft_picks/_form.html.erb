@@ -1,0 +1,32 @@
+<%= form_with(model: draft_pick) do |form| %>
+  <% if draft_pick.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(draft_pick.errors.count, "error") %> prohibited this draft_pick from being saved:</h2>
+
+      <ul>
+        <% draft_pick.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :year, style: "display: block" %>
+    <%= form.number_field :year %>
+  </div>
+
+  <div>
+    <%= form.label :round, style: "display: block" %>
+    <%= form.number_field :round %>
+  </div>
+
+  <div>
+    <%= form.label :pick, style: "display: block" %>
+    <%= form.number_field :pick %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

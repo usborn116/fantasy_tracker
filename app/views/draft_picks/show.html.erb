@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @draft_pick %>
+
+<div>
+  <%= link_to "Edit this draft pick", edit_draft_pick_path(@draft_pick) %> |
+  <%= link_to "Back to draft picks", draft_picks_path %>
+
+  <%= button_to "Destroy this draft pick", @draft_pick, method: :delete %>
+</div>

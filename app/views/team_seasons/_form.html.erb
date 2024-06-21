@@ -1,0 +1,52 @@
+<%= form_with(model: team_season) do |form| %>
+  <% if team_season.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(team_season.errors.count, "error") %> prohibited this team_season from being saved:</h2>
+
+      <ul>
+        <% team_season.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :soft_cap, style: "display: block" %>
+    <%= form.number_field :soft_cap %>
+  </div>
+
+  <div>
+    <%= form.label :hard_cap, style: "display: block" %>
+    <%= form.number_field :hard_cap %>
+  </div>
+
+  <div>
+    <%= form.label :roster_size, style: "display: block" %>
+    <%= form.number_field :roster_size %>
+  </div>
+
+  <div>
+    <%= form.label :incoming_pics, style: "display: block" %>
+    <%= form.number_field :incoming_pics %>
+  </div>
+
+  <div>
+    <%= form.label :max_RFA_bid, style: "display: block" %>
+    <%= form.number_field :max_RFA_bid %>
+  </div>
+
+  <div>
+    <%= form.label :max_UFA_bid, style: "display: block" %>
+    <%= form.number_field :max_UFA_bid %>
+  </div>
+
+  <div>
+    <%= form.label :dead_cap, style: "display: block" %>
+    <%= form.number_field :dead_cap %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

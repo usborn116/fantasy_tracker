@@ -1,0 +1,17 @@
+<%= form_with(model: trade_machine) do |form| %>
+  <% if trade_machine.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(trade_machine.errors.count, "error") %> prohibited this trade_machine from being saved:</h2>
+
+      <ul>
+        <% trade_machine.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
