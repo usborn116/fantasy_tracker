@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :user_teams
+  resources :user_leagues
   resources :trades
   resources :trade_machines
   resources :team_seasons
