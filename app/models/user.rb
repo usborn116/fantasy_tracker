@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  has_many :leagues
+  belongs_to :league
   has_many :teams
 
 end

@@ -1,3 +1,4 @@
+require 'espn_nba_fantasy'
 class LeaguesController < ApplicationController
   before_action :set_league, only: %i[ show edit update destroy ]
 
@@ -8,6 +9,7 @@ class LeaguesController < ApplicationController
 
   # GET /leagues/1 or /leagues/1.json
   def show
+    @teams = @league.teams
   end
 
   # GET /leagues/new

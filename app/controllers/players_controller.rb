@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.all
+    @players = Player.where(team_id: params[:team_id])
   end
 
   # GET /players/1 or /players/1.json

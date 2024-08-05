@@ -5,6 +5,7 @@
 <div>
   <%= link_to "Edit this league", edit_league_path(@league) %> |
   <%= link_to "Back to leagues", leagues_path %>
+  <%= link_to "Show this league's teams", league_teams_path(@league) %>
 
   <%= button_to "Destroy this league", @league, method: :delete %>
 </div>

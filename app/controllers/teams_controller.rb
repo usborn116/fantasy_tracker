@@ -1,13 +1,16 @@
+require 'espn_nba_fantasy'
+
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
 
   # GET /teams or /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.where(league_id: params[:league_id])
   end
 
   # GET /teams/1 or /teams/1.json
   def show
+    @players = @team.players
   end
 
   # GET /teams/new

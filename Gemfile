@@ -75,5 +75,10 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem 'espn_nba_fantasy', '~> 1.0.2'
+
+gem 'dotenv', groups: [:development, :test]
 
 gem "devise", "~> 4.9"
+
+gem 'nba-player-api'
