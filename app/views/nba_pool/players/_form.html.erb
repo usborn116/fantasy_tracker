@@ -1,0 +1,52 @@
+<%= form_with(model: nba_pool_player) do |form| %>
+  <% if nba_pool_player.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(nba_pool_player.errors.count, "error") %> prohibited this nba_pool_player from being saved:</h2>
+
+      <ul>
+        <% nba_pool_player.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :first_name, style: "display: block" %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= form.label :last_name, style: "display: block" %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= form.label :position, style: "display: block" %>
+    <%= form.text_field :position %>
+  </div>
+
+  <div>
+    <%= form.label :nba_id, style: "display: block" %>
+    <%= form.number_field :nba_id %>
+  </div>
+
+  <div>
+    <%= form.label :slug, style: "display: block" %>
+    <%= form.text_field :slug %>
+  </div>
+
+  <div>
+    <%= form.label :draft_year, style: "display: block" %>
+    <%= form.number_field :draft_year %>
+  </div>
+
+  <div>
+    <%= form.label :nba_team, style: "display: block" %>
+    <%= form.text_field :nba_team %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

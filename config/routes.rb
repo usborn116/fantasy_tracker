@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :nba_pool do
+    resources :players
+  end
   resources :seasons
   resources :user_teams
   resources :user_leagues

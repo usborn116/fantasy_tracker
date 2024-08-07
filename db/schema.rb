@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_05_235342) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_05_235342) do
     t.string "name"
     t.integer "current_start_year"
     t.integer "current_end_year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nba_pool_players", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "position"
+    t.integer "nba_id"
+    t.string "slug"
+    t.integer "draft_year"
+    t.string "nba_team"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
