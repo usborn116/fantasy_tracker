@@ -1,5 +1,6 @@
 class NbaPool::PlayersController < ApplicationController
   before_action :set_nba_pool_player, only: %i[ show edit update destroy ]
+  skip_before_action :set_league
 
   # GET /nba_pool/players or /nba_pool/players.json
   def index

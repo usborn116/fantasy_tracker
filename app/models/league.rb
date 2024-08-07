@@ -5,4 +5,8 @@ class League < ApplicationRecord
     has_many :trades
     has_many :seasons
 
+    def admins
+      self.users.where(role: "admin")
+    end
+
 end
