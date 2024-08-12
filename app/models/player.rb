@@ -3,6 +3,7 @@ class Player < ApplicationRecord
     belongs_to :league
     has_many :salaries, dependent: :destroy
     validate :player_exists_in_nba, :on => :create
+    validates :nba_id, uniqueness: true
 
     accepts_nested_attributes_for :salaries
 
