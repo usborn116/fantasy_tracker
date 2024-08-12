@@ -1,10 +1,10 @@
-class UserLeaguesController < ApplicationController
+class LeagueMembershipsController < ApplicationController
   skip_before_action :set_league
   before_action :set_user_league, only: %i[ show edit update destroy ]
 
   # GET /user_leagues or /user_leagues.json
   def index
-    @user_leagues = UserLeague.all
+    @user_leagues = LeagueMembership.all
   end
 
   # GET /user_leagues/1 or /user_leagues/1.json
@@ -13,7 +13,7 @@ class UserLeaguesController < ApplicationController
 
   # GET /user_leagues/new
   def new
-    @user_league = UserLeague.new
+    @user_league = LeagueMembership.new
   end
 
   # GET /user_leagues/1/edit
@@ -22,7 +22,7 @@ class UserLeaguesController < ApplicationController
 
   # POST /user_leagues or /user_leagues.json
   def create
-    @user_league = UserLeague.new(user_league_params)
+    @user_league = LeagueMembership.new(user_league_params)
 
     respond_to do |format|
       if @user_league.save
@@ -61,7 +61,7 @@ class UserLeaguesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_league
-      @user_league = UserLeague.find(params[:id])
+      @user_league = LeagueMembership.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -6,7 +6,8 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :user_leagues
-  has_many :leagues, through: :user_leagues
+  has_many :leagues
+  has_many :league_memberships, through: :user_leagues, class_name: "League"
   has_many :user_teams
   has_many :teams, through: :user_teams
 
