@@ -21,7 +21,10 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    @player = Player.new(player_params)
+    #@player = Player.new(player_params)
+
+    @player = Player.find_or_initialize_by(nba_id: player_params[:nba_id])
+    @player.update(player_params)
 
     respond_to do |format|
       if @player.save

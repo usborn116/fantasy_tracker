@@ -5,6 +5,7 @@ class League < ApplicationRecord
     belongs_to :user
     has_many :trades, dependent: :destroy
     has_many :seasons, dependent: :destroy
+    has_many :players, dependent: :destroy
 
     accepts_nested_attributes_for :seasons
     accepts_nested_attributes_for :league_memberships
