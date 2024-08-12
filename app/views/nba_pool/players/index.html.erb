@@ -1,14 +1,38 @@
 <p style="color: green"><%= notice %></p>
 
+<%= link_to "Get NBA Players", nba_pool_nba_api_index_path %>
+
 <h1>Players</h1>
 
 <div id="nba_pool_players">
-  <% @nba_pool_players.each do |nba_pool_player| %>
-    <%= render nba_pool_player %>
+  <div class="listing">
     <p>
-      <%= link_to "Show this player", nba_pool_player %>
+      <strong>First name</strong>
     </p>
-  <% end %>
-</div>
+
+    <p>
+      <strong>Last name</strong>
+    </p>
+
+    <p>
+      <strong>Position</strong>
+    </p>
+
+    <p>
+      <strong>Draft year</strong>
+    </p>
+
+    <p>
+      <strong>Nba team</strong>
+    </p>
+  </div>
+  <% @nba_pool_players.each do |nba_pool_player| %>
+    
+        <%= render nba_pool_player %>
+        <p>
+          <%= link_to "Show this player", nba_pool_player %>
+        </p>
+      <% end %>
+    </div>
 
 <%= link_to "New player", new_nba_pool_player_path %>
