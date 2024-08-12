@@ -1,0 +1,2 @@
+module NbaPool::NbaApiHelper
+end
