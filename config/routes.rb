@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+
+  devise_for :users,
+    controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      confirmations: 'users/confirmations'
+    }
   namespace :nba_pool do
     resources :players
+    resources :nba_api, only: :index
   end
   
   resources :user_teams
@@ -9,7 +17,6 @@ Rails.application.routes.draw do
     resources :trade_machines
     resources :trades
     resources :seasons
-    devise_for :users
     resources :teams do
       resources :team_seasons
       resources :draft_picks
