@@ -83,6 +83,8 @@ gem "devise", "~> 4.9"
 
 gem 'nba-player-api'
 
+gem 'vite_rails'
+
 group :development, :test do
   gem 'rspec-rails'
 end

@@ -4,7 +4,7 @@ class LeaguesController < ApplicationController
 
   # GET /leagues or /leagues.json
   def index
-    @leagues = League.all
+    @leagues = current_user ? current_user.leagues : []
   end
 
   # GET /leagues/1 or /leagues/1.json
@@ -14,7 +14,7 @@ class LeaguesController < ApplicationController
 
   # GET /leagues/new
   def new
-    @league = League.new
+    @league = current_user.owned_leagues.new
   end
 
   # GET /leagues/1/edit
@@ -23,7 +23,7 @@ class LeaguesController < ApplicationController
 
   # POST /leagues or /leagues.json
   def create
-    @league = League.new(league_params)
+    @league = current_user.owned_leagues.new(league_params)
 
     respond_to do |format|
       if @league.save
@@ -67,6 +67,6 @@ class LeaguesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def league_params
-      params.require(:league).permit(:id, :name)
+      params.require(:league).permit(:league_id, :name, :current_start_year, :current_end_year)
     end
 end
