@@ -7,6 +7,7 @@ class NbaPool::PlayersController < ApplicationController
   # GET /nba_pool/players or /nba_pool/players.json
   def index
     @nba_pool_players = NbaPool::Player.all
+    render json: @nba_pool_players
   end
 
   # GET /nba_pool/players/1 or /nba_pool/players/1.json

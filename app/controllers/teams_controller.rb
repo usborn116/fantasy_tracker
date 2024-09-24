@@ -21,6 +21,7 @@ class TeamsController < ApplicationController
       @nba_players = NbaPool::Player.where("last_name like ?", "#{params[:last_name]}")
     end
     
+    @draft_picks = @team.draft_picks
   end
 
   # GET /teams/new

@@ -67,6 +67,6 @@ class LeaguesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def league_params
-      params.require(:league).permit(:id, :name)
+      params.require(:league).permit(:league_id, :name, :current_start_year, :current_end_year)
     end
 end
