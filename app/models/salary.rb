@@ -1,4 +1,4 @@
 class Salary < ApplicationRecord
     belongs_to :player
-    belongs_to :team_season
+    belongs_to :season
 end

@@ -1,5 +1,6 @@
 class TradeMachinesController < ApplicationController
   before_action :set_trade_machine, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_league_admin
 
   # GET /trade_machines or /trade_machines.json
   def index

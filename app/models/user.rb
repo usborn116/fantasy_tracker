@@ -11,4 +11,5 @@ class User < ApplicationRecord
   has_many :teams, through: :user_teams
 
 
+
 end

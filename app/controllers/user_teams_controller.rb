@@ -1,4 +1,5 @@
 class UserTeamsController < ApplicationController
+  skip_before_action :set_league
   before_action :set_user_team, only: %i[ show edit update destroy ]
 
   # GET /user_teams or /user_teams.json

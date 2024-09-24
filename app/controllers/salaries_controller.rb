@@ -1,4 +1,5 @@
 class SalariesController < ApplicationController
+  before_action :set_league
   before_action :set_salary, only: %i[ show edit update destroy ]
 
   # GET /salaries or /salaries.json
@@ -59,6 +60,9 @@ class SalariesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    # 
+
+
     def set_salary
       @salary = Salary.find(params[:id])
     end

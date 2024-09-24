@@ -1,5 +1,6 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_league_admin, only: %i[ new create ]
 
   # GET /trades or /trades.json
   def index
