@@ -29,10 +29,11 @@ import '~/index.css'
 
 import React from "react";
 import * as ReactDOM from "react-dom/client";
-import { App } from "~/components/App"
+import { router } from '../components/router';
+import { RouterProvider } from "react-router-dom";
 
 ReactDOM.createRoot(document.body.appendChild(document.createElement("root"))).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

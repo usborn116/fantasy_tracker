@@ -12,6 +12,7 @@ class NbaPool::PlayersController < ApplicationController
 
   # GET /nba_pool/players/1 or /nba_pool/players/1.json
   def show
+    render json: @nba_pool_player
   end
 
   # GET /nba_pool/players/new

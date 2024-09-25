@@ -1,18 +1,27 @@
-import React from "react";
-import * as ReactDOM from "react-dom/client";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { PlayerPresenter } from "./PlayerPresenter";
+import { getData } from "../helpers/api_methods";
 
-export const Player = ({ first, last, position, nba_team, draft_year } ) => {
+export const Player = (props) => {
+
+    const id = props.id ?? useParams().player_id
+
+    const [player, setPlayer] = useState(null)
+
+    useEffect(() => {
+        getData(`nba_pool/players/${id}`, setPlayer)
+    }, [])
 
     return (
-        <div className="player-listing">
-            <div className="name">
-                {first} {last}
-            </div>
-            <div className="player-details">
-                <div>Position: {position}</div>
-                <div>Current NBA Team: {nba_team}</div>
-                <div>Drafted: {draft_year}</div>
-            </div>
+        player &&
+        <div className="player-box">
+                <PlayerPresenter first={player.first_name}
+                    last={player.last_name}
+                    position={player.position}
+                    nba_team={player.nba_team}
+                    draft_year={player.draft_year}
+                />
         </div>
     )
 }

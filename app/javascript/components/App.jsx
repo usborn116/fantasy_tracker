@@ -12,12 +12,13 @@ export const App = () => {
     }, [])
 
     const dataPresent = data?.map(d => (
-        <Player first={d.first_name} last={d.last_name} position={d.position} nba_team={d.nba_team} draft_year={d.draft_year}/>
+        <Player key={d.nba_id} id={d.id} />
     ))
 
     return (
+        data &&
         <div>
-            <h1>Hello from React!</h1>
+            <h1>NBA Players</h1>
             {dataPresent}
         </div>
         
