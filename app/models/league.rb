@@ -1,9 +1,9 @@
 class League < ApplicationRecord
-    has_many :teams
-    has_many :user_leagues
+    has_many :teams, dependent: :destroy
+    has_many :user_leagues, dependent: :destroy
     has_many :users, through: :user_leagues
-    has_many :trades
-    has_many :seasons
+    has_many :trades, dependent: :destroy
+    has_many :seasons, dependent: :destroy
 
     accepts_nested_attributes_for :seasons
     accepts_nested_attributes_for :user_leagues

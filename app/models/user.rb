@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :user_teams
   has_many :teams, through: :user_teams
 
-
+  accepts_nested_attributes_for :user_leagues
+  accepts_nested_attributes_for :user_teams
+  accepts_nested_attributes_for :teams
 
 end
