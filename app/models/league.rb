@@ -2,7 +2,6 @@ class League < ApplicationRecord
     has_many :teams, dependent: :destroy
     has_many :league_memberships, dependent: :destroy
     has_many :members, through: :league_memberships, class_name: "User"
-    belongs_to :user
     has_many :trades, dependent: :destroy
     has_many :seasons, dependent: :destroy
 
