@@ -82,3 +82,7 @@ gem 'dotenv', groups: [:development, :test]
 gem "devise", "~> 4.9"
 
 gem 'nba-player-api'
+
+group :development, :test do
+  gem 'rspec-rails'
+end

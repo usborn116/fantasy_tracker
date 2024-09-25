@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_12_185605) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_12_202223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_185605) do
     t.string "nba_team"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["nba_id"], name: "index_nba_pool_players_on_nba_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -73,6 +74,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_185605) do
     t.datetime "updated_at", null: false
     t.bigint "team_id"
     t.string "nba_team"
+    t.bigint "league_id"
+    t.index ["league_id"], name: "index_players_on_league_id"
+    t.index ["nba_id"], name: "index_players_on_nba_id"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -172,6 +176,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_185605) do
   add_foreign_key "league_memberships", "leagues"
   add_foreign_key "league_memberships", "users", column: "member_id"
   add_foreign_key "leagues", "users"
+  add_foreign_key "players", "leagues"
   add_foreign_key "players", "teams"
   add_foreign_key "salaries", "players"
   add_foreign_key "salaries", "team_seasons"
