@@ -1,25 +1,25 @@
 class League < ApplicationRecord
     has_many :teams, dependent: :destroy
-    has_many :user_leagues, dependent: :destroy
-    has_many :users, through: :user_leagues
+    has_many :league_memberships, dependent: :destroy
+    has_many :members, through: :league_memberships, class_name: "User"
     has_many :trades, dependent: :destroy
     has_many :seasons, dependent: :destroy
 
     accepts_nested_attributes_for :seasons
-    accepts_nested_attributes_for :user_leagues
+    accepts_nested_attributes_for :league_memberships
 
-    after_create :set_admin
+    after_create :create_admin_membership
+
+    def admins
+      self.league_memberships
+      .where(role: "admin")
+      .map(&:member)
+    end
 
     private
 
-    def admins
-      self.users.where(role: "admin")
-    end
-
-    def set_admin
-      self.user_leagues.where(user_id: current_user.id).each do |ul|
-        ul.update!(role: "admin")
-      end
+    def create_admin_membership
+      LeagueMembership.create!(member_id: self.user_id, league_id: self.id, role: "admin")
     end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_12_185605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
     t.index ["team_season_id"], name: "index_draft_picks_on_team_season_id"
   end
 
+  create_table "league_memberships", force: :cascade do |t|
+    t.bigint "member_id", null: false
+    t.bigint "league_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "role"
+    t.index ["league_id"], name: "index_league_memberships_on_league_id"
+    t.index ["member_id"], name: "index_league_memberships_on_member_id"
+  end
+
   create_table "leagues", force: :cascade do |t|
     t.integer "league_id"
     t.string "name"
@@ -35,6 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
     t.integer "current_end_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_leagues_on_user_id"
   end
 
   create_table "nba_pool_players", force: :cascade do |t|
@@ -127,16 +139,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
     t.index ["team_season_id"], name: "index_trades_on_team_season_id"
   end
 
-  create_table "user_leagues", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "league_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "role"
-    t.index ["league_id"], name: "index_user_leagues_on_league_id"
-    t.index ["user_id"], name: "index_user_leagues_on_user_id"
-  end
-
   create_table "user_teams", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "team_id", null: false
@@ -167,6 +169,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
   add_foreign_key "draft_picks", "team_seasons"
   add_foreign_key "draft_picks", "teams"
   add_foreign_key "draft_picks", "teams", column: "original_owner_id"
+  add_foreign_key "league_memberships", "leagues"
+  add_foreign_key "league_memberships", "users", column: "member_id"
+  add_foreign_key "leagues", "users"
   add_foreign_key "players", "teams"
   add_foreign_key "salaries", "players"
   add_foreign_key "salaries", "team_seasons"
@@ -179,8 +184,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_153907) do
   add_foreign_key "trades", "team_seasons"
   add_foreign_key "trades", "teams", column: "team1_id"
   add_foreign_key "trades", "teams", column: "team2_id"
-  add_foreign_key "user_leagues", "leagues"
-  add_foreign_key "user_leagues", "users"
   add_foreign_key "user_teams", "teams"
   add_foreign_key "user_teams", "users"
 end
