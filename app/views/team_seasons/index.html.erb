@@ -2,11 +2,13 @@
 
 <h1>Team seasons</h1>
 
+<%= @team.name %>
+
 <div id="team_seasons">
   <% @team_seasons.each do |team_season| %>
     <%= render team_season %>
     <p>
-      <%= link_to "Show this team season", team_season %>
+      <%= link_to "Show this team season", league_team_team_season_path(@league, @team, team_season) %>
     </p>
   <% end %>
 </div>

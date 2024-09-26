@@ -12,39 +12,11 @@
   <% end %>
 
   <div>
-    <%= form.label :soft_cap, style: "display: block" %>
-    <%= form.number_field :soft_cap %>
+    <%= form.label :season_id, style: "display: block"%>
+    <%= form.collection_select :season_id, @team.league.seasons, :id, :start_year %>
+    
   </div>
 
-  <div>
-    <%= form.label :hard_cap, style: "display: block" %>
-    <%= form.number_field :hard_cap %>
-  </div>
-
-  <div>
-    <%= form.label :roster_size, style: "display: block" %>
-    <%= form.number_field :roster_size %>
-  </div>
-
-  <div>
-    <%= form.label :incoming_pics, style: "display: block" %>
-    <%= form.number_field :incoming_pics %>
-  </div>
-
-  <div>
-    <%= form.label :max_RFA_bid, style: "display: block" %>
-    <%= form.number_field :max_RFA_bid %>
-  </div>
-
-  <div>
-    <%= form.label :max_UFA_bid, style: "display: block" %>
-    <%= form.number_field :max_UFA_bid %>
-  </div>
-
-  <div>
-    <%= form.label :dead_cap, style: "display: block" %>
-    <%= form.number_field :dead_cap %>
-  </div>
 
   <div>
     <%= form.submit %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_26_173941) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_26_195130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,20 +98,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_173941) do
     t.integer "end_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "base_cap"
     t.index ["league_id"], name: "index_seasons_on_league_id"
   end
 
   create_table "team_seasons", force: :cascade do |t|
-    t.integer "soft_cap"
-    t.integer "hard_cap"
-    t.integer "roster_size"
-    t.integer "max_RFA_bid"
-    t.integer "max_UFA_bid"
-    t.integer "dead_cap"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "team_id", null: false
-    t.integer "year"
     t.bigint "season_id"
     t.index ["season_id"], name: "index_team_seasons_on_season_id"
     t.index ["team_id"], name: "index_team_seasons_on_team_id"

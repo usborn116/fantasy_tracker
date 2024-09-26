@@ -13,7 +13,7 @@ class TeamSeasonsController < ApplicationController
 
   # GET /team_seasons/new
   def new
-    @team_season = TeamSeason.new
+    @team_season = @team.team_seasons.new
   end
 
   # GET /team_seasons/1/edit
@@ -22,11 +22,11 @@ class TeamSeasonsController < ApplicationController
 
   # POST /team_seasons or /team_seasons.json
   def create
-    @team_season = TeamSeason.new(team_season_params)
+    @team_season = @team.team_seasons.new(team_season_params)
 
     respond_to do |format|
       if @team_season.save
-        format.html { redirect_to team_season_url(@team_season), notice: "Team season was successfully created." }
+        format.html { redirect_to league_team_team_season_url(@league, @team, @team_season), notice: "Team season was successfully created." }
         format.json { render :show, status: :created, location: @team_season }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -64,13 +64,13 @@ class TeamSeasonsController < ApplicationController
     def set_team
       @team = Team.find(params[:team_id])
     end
-    
+
     def set_team_season
       @team_season = TeamSeason.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def team_season_params
-      params.require(:team_season).permit(:soft_cap, :hard_cap, :roster_size, :incoming_pics, :max_RFA_bid, :max_UFA_bid, :dead_cap)
+      params.require(:team_season).permit(:season_id)
     end
 end
