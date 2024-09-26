@@ -23,14 +23,14 @@ class LeaguesController < ApplicationController
 
   # POST /leagues or /leagues.json
   def create
-    @league = League.new(league_params)
+    @league = current_user.owned_leagues.new(league_params)
 
     respond_to do |format|
       if @league.save
         format.html { redirect_to league_url(@league), notice: "League was successfully created." }
         format.json { render :show, status: :created, location: @league }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity, notice: "#{@league.errors}" }
         format.json { render json: @league.errors, status: :unprocessable_entity }
       end
     end

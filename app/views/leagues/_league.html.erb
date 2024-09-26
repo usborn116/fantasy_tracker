@@ -9,6 +9,11 @@
     <%= league.name %>
   </p>
 
+  <p>
+    <strong>Admins:</strong>
+    <%= league.admins.map(&:email) %>
+  </p>
+
 
 
 </div>

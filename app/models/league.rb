@@ -1,4 +1,5 @@
 class League < ApplicationRecord
+    belongs_to :user, :inverse_of => :owned_leagues
     has_many :teams, dependent: :destroy
     has_many :league_memberships, dependent: :destroy
     has_many :members, through: :league_memberships, class_name: "User"
