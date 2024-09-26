@@ -3,7 +3,7 @@ class SeasonsController < ApplicationController
 
   # GET /seasons or /seasons.json
   def index
-    @seasons = Season.all
+    @seasons = @league.seasons.all
   end
 
   # GET /seasons/1 or /seasons/1.json
@@ -12,7 +12,7 @@ class SeasonsController < ApplicationController
 
   # GET /seasons/new
   def new
-    @season = Season.new
+    @season = @league.seasons.new
   end
 
   # GET /seasons/1/edit
@@ -21,11 +21,11 @@ class SeasonsController < ApplicationController
 
   # POST /seasons or /seasons.json
   def create
-    @season = Season.new(season_params)
+    @season = @league.seasons.new(season_params)
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to season_url(@season), notice: "Season was successfully created." }
+        format.html { redirect_to league_seasons_url(@league, @season), notice: "Season was successfully created." }
         format.json { render :show, status: :created, location: @season }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class SeasonsController < ApplicationController
   def update
     respond_to do |format|
       if @season.update(season_params)
-        format.html { redirect_to season_url(@season), notice: "Season was successfully updated." }
+        format.html { redirect_to league_seasons_url(@league, @season), notice: "Season was successfully updated." }
         format.json { render :show, status: :ok, location: @season }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class SeasonsController < ApplicationController
     @season.destroy
 
     respond_to do |format|
-      format.html { redirect_to seasons_url, notice: "Season was successfully destroyed." }
+      format.html { redirect_to league_seasons_url, notice: "Season was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -3,8 +3,8 @@
 <%= render @season %>
 
 <div>
-  <%= link_to "Edit this season", edit_season_path(@season) %> |
-  <%= link_to "Back to seasons", seasons_path %>
+  <%= link_to "Edit this season", edit_league_season_path(@league, @season) %> |
+  <%= link_to "Back to seasons", league_seasons_path(@league) %>
 
-  <%= button_to "Destroy this season", @season, method: :delete %>
+  <%= button_to "Destroy this season", league_season_path(@league, @season), method: :delete %>
 </div>

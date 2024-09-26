@@ -6,9 +6,9 @@
   <% @seasons.each do |season| %>
     <%= render season %>
     <p>
-      <%= link_to "Show this season", season %>
+      <%= link_to "Show this season", league_season_path(@league, season) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New season", new_season_path %>
+<%= link_to "New season", new_league_season_path %>

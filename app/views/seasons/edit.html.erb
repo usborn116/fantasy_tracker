@@ -1,10 +1,10 @@
 <h1>Editing season</h1>
 
-<%= render "form", season: @season %>
+<%= render "form", league: @league, season: @season %>
 
 <br>
 
 <div>
-  <%= link_to "Show this season", @season %> |
-  <%= link_to "Back to seasons", seasons_path %>
+  <%= link_to "Show this season", league_season_path(@league, @season) %> |
+  <%= link_to "Back to seasons", league_seasons_path(@league) %>
 </div>

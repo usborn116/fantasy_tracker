@@ -8,15 +8,12 @@ class ApplicationController < ActionController::Base
   def authenticate_league_admin
     set_league
     unless @league.admins.include?(current_user)
-      flash[:error] = "You must be a league admin to perform this action"
-      redirect_back(fallback_location: root_path)
+      redirect_back fallback_location: root_path, notice: "You must be a league admin to perform this action"
     end
   end
 
   def set_league
     lookup = params[:league_id] || params[:id]
-    puts 'LOOKUP'
-    puts lookup
     @league = League.find(lookup)
   end
 
