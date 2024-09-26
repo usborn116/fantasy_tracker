@@ -16,10 +16,11 @@ Rails.application.routes.draw do
   resources :leagues do
     resources :trade_machines
     resources :trades
-    resources :seasons
+    resources :seasons do
+      resources :draft_picks
+    end
     resources :teams do
       resources :team_seasons
-      resources :draft_picks
       resources :players do
         resources :salaries
       end
