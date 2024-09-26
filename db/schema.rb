@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_26_195130) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_26_205307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,10 +22,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_195130) do
     t.datetime "updated_at", null: false
     t.bigint "team_id", null: false
     t.bigint "original_owner_id"
-    t.bigint "team_season_id"
+    t.bigint "season_id"
     t.index ["original_owner_id"], name: "index_draft_picks_on_original_owner_id"
+    t.index ["season_id"], name: "index_draft_picks_on_season_id"
     t.index ["team_id"], name: "index_draft_picks_on_team_id"
-    t.index ["team_season_id"], name: "index_draft_picks_on_team_season_id"
   end
 
   create_table "league_memberships", force: :cascade do |t|
@@ -162,7 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_195130) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "draft_picks", "team_seasons"
+  add_foreign_key "draft_picks", "seasons"
   add_foreign_key "draft_picks", "teams"
   add_foreign_key "draft_picks", "teams", column: "original_owner_id"
   add_foreign_key "league_memberships", "leagues"
