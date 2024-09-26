@@ -5,17 +5,18 @@ class TeamsController < ApplicationController
 
   # GET /teams or /teams.json
   def index
-    @teams = Team.where(league_id: params[:league_id])
+    @teams = @league.teams
   end
 
   # GET /teams/1 or /teams/1.json
   def show
-    @players = @team.players
+    @players = @team&.players
   end
 
   # GET /teams/new
   def new
-    @team = Team.new
+    @team = @league.teams.new
+    @team.user_teams.build
   end
 
   # GET /teams/1/edit
@@ -24,11 +25,11 @@ class TeamsController < ApplicationController
 
   # POST /teams or /teams.json
   def create
-    @team = Team.new(team_params)
+    @team = @league.teams.new(team_params)
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to team_url(@team), notice: "Team was successfully created." }
+        format.html { redirect_to league_team_url(@league, @team), notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +42,7 @@ class TeamsController < ApplicationController
   def update
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to team_url(@team), notice: "Team was successfully updated." }
+        format.html { redirect_to league_team_url(@league, @team), notice: "Team was successfully updated." }
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +56,7 @@ class TeamsController < ApplicationController
     @team.destroy
 
     respond_to do |format|
-      format.html { redirect_to teams_url, notice: "Team was successfully destroyed." }
+      format.html { redirect_to league_teams_url(@league), notice: "Team was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -68,6 +69,6 @@ class TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, user_teams_attributes: [:user_id] )
     end
 end

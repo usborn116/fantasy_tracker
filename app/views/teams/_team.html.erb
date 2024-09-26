@@ -2,7 +2,11 @@
   <p>
     <strong>Name:</strong>
     <%= team.name %>
-    <%= team.id %>
+  </p>
+
+  <p>
+    <strong>Owners:</strong>
+    <%= team.users.map(&:email) %>
   </p>
 
 </div>

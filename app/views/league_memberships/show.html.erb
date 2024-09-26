@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @league_membership %>
+
+<div>
+  <%= link_to "Edit this user league", edit_league_membership_path(@league_membership) %> |
+  <%= link_to "Back to user leagues", league_memberships_path %>
+
+  <%= button_to "Destroy this user league", @league_membership, method: :delete %>
+</div>

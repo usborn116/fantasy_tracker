@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   
   resources :user_teams
-  resources :user_leagues
+  resources :league_memberships
   resources :leagues do
     resources :trade_machines
     resources :trades

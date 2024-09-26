@@ -4,7 +4,7 @@ class LeaguesController < ApplicationController
 
   # GET /leagues or /leagues.json
   def index
-    @leagues = League.all
+    @leagues = current_user.leagues
   end
 
   # GET /leagues/1 or /leagues/1.json
@@ -14,7 +14,7 @@ class LeaguesController < ApplicationController
 
   # GET /leagues/new
   def new
-    @league = League.new
+    @league = current_user.owned_leagues.new
   end
 
   # GET /leagues/1/edit

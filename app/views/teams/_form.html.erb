@@ -1,4 +1,4 @@
-<%= form_with(model: team) do |form| %>
+<%= form_with model: [@league, team] do |form| %>
   <% if team.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -15,6 +15,11 @@
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
+
+  <%= form.fields_for :user_teams do |user_team_subform| %>
+    <%= user_team_subform.label :user, style: "display: block" %>
+    <%= user_team_subform.collection_select :user_id, @league.members.order(:email), :id, :email, include_blank: true %>
+  <% end %>
 
   <div>
     <%= form.submit %>

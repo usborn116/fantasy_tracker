@@ -1,9 +1,10 @@
 class TeamSeasonsController < ApplicationController
   before_action :set_team_season, only: %i[ show edit update destroy ]
+  before_action :set_team
 
   # GET /team_seasons or /team_seasons.json
   def index
-    @team_seasons = TeamSeason.all
+    @team_seasons = @team.team_seasons
   end
 
   # GET /team_seasons/1 or /team_seasons/1.json
@@ -58,7 +59,12 @@ class TeamSeasonsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Use callbacks to share common setup or cosnstraints between actions.
+    #
+    def set_team
+      @team = Team.find(params[:team_id])
+    end
+    
     def set_team_season
       @team_season = TeamSeason.find(params[:id])
     end
