@@ -5,7 +5,7 @@
 <div>
   <%= link_to "Edit this team", edit_league_team_path(@league, @team) %> |
   <%= link_to "Back to teams", league_teams_path(@league) %>
-  <%= link_to "See this team's roster", league_team_players_path(@league, @team) %>
+  <%= link_to "See this team's roster", league_team_roster_path(@league, @team) %>
 
   <%= button_to "Destroy this team", @league_team, method: :delete %>
 </div>

@@ -1,0 +1,8 @@
+<div id="players">
+  <% @nba_players.each do |player| %>
+    <%= render player %>
+    <p>
+      <%= link_to "Add This Player", new_league_player_path(@league, :nba_player_id => player.nba_id) %>
+    </p>
+  <% end %>
+</div>

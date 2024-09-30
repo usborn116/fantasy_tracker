@@ -21,9 +21,10 @@ Rails.application.routes.draw do
     end
     resources :teams do
       resources :team_seasons
-      resources :players do
-        resources :salaries
-      end
+      get 'roster', to: "teams#roster"
+    end
+    resources :players do
+      resources :salaries
     end
   end
   

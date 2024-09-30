@@ -3,8 +3,9 @@
 <%= render @player %>
 
 <div>
-  <%= link_to "Edit this player", edit_league_team_player_path(@player.team.league, @player.team, @player) %> |
-  <%= link_to "Back to players", league_team_players_path %>
+  <%= link_to "Edit this player", edit_league_player_path(@league, @player) %> |
+  <%= link_to "Back to players", league_players_path(@league) %>
+  <%= link_to "Team Roster", league_team_roster_path(@league, @player.team) %>
 
   <%= button_to "Destroy this player", @league_team_player, method: :delete %>
 </div>

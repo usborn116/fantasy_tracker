@@ -1,7 +1,7 @@
 require 'espn_nba_fantasy'
 
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[ show edit update destroy ]
+  before_action :set_team, only: %i[ roster show edit update destroy ]
 
   # GET /teams or /teams.json
   def index
@@ -10,7 +10,15 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
-    @players = @team&.players
+  end
+
+  def roster
+    @players = @team.players
+
+    if params[:last_name] != ""
+      @nba_players = NbaPool::Player.where("last_name like ?", "#{params[:last_name]}")
+    end
+    
   end
 
   # GET /teams/new
@@ -64,7 +72,8 @@ class TeamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
-      @team = Team.find(params[:id])
+      identifier = params[:team_id] || params[:id]
+      @team = Team.find(identifier)
     end
 
     # Only allow a list of trusted parameters through.

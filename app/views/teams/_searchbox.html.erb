@@ -1,0 +1,5 @@
+<%= form_tag "", method: "GET" do %>
+  <%= label_tag :last_name %>
+  <%= text_field_tag :last_name, params[:last_name] %>
+  <%= submit_tag "Search" %>
+<% end %>

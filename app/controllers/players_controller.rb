@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.where(team_id: params[:team_id])
+    @players = @league.players
   end
 
   # GET /players/1 or /players/1.json
@@ -12,7 +12,24 @@ class PlayersController < ApplicationController
 
   # GET /players/new
   def new
-    @player = Player.new
+    
+    @team = request&.referrer&.match?("/roster") ? request.referrer.split("/")[-2] : nil
+
+    if params[:nba_player_id] != ""
+      @nba_player = NbaPool::Player.find_by(nba_id: params[:nba_player_id])
+      @player = @league.players.find_by(nba_id: params[:nba_player_id]) || @league.players.new
+      @player.assign_attributes(
+        first_name: @nba_player.first_name,
+        last_name: @nba_player.last_name,
+        position: @nba_player.position,
+        nba_id: @nba_player.nba_id,
+        slug: @nba_player.slug,
+        draft_year: @nba_player.draft_year,
+        nba_team: @nba_player.nba_team,
+        team_id: @team.to_i
+      )
+    end
+
   end
 
   # GET /players/1/edit
@@ -21,14 +38,14 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    #@player = Player.new(player_params)
+    #@player = @team.players.new(player_params)
 
-    @player = Player.find_or_initialize_by(nba_id: player_params[:nba_id])
-    @player.update(player_params)
+    @player = @league.players.find_or_initialize_by(nba_id: player_params[:nba_id])
+    @player.update!(player_params)
 
     respond_to do |format|
-      if @player.save
-        format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
+      if @player.save!
+        format.html { redirect_to league_player_url(@league, @player), notice: "Player was successfully added to the team." }
         format.json { render :show, status: :created, location: @player }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +58,7 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.html { redirect_to player_url(@player), notice: "Player was successfully updated." }
+        format.html { redirect_to league_player_url(@league, @player), notice: "Player was successfully updated." }
         format.json { render :show, status: :ok, location: @player }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,19 +72,20 @@ class PlayersController < ApplicationController
     @player.destroy
 
     respond_to do |format|
-      format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
+      format.html { redirect_to league_players_url(@league), notice: "Player was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Use callbacks to share common setup or constraints between actions
+
     def set_player
       @player = Player.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:first_name, :last_name, :position, :nba_id, :slug, :draft_year, :trade_block)
+      params.require(:player).permit(:first_name, :team_id, :last_name, :position, :nba_id, :slug, :draft_year, :trade_block)
     end
 end
