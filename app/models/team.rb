@@ -6,6 +6,7 @@ class Team < ApplicationRecord
     has_many :trades, through: :team_seasons
     has_many :players
     has_many :draft_picks
+    has_many :original_draft_picks, :inverse_of => :original_owner, class_name: "DraftPick", foreign_key: :original_owner_id
     has_many :salaries, through: :players
 
     accepts_nested_attributes_for :players

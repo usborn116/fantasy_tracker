@@ -6,9 +6,9 @@
   <% @draft_picks.each do |draft_pick| %>
     <%= render draft_pick %>
     <p>
-      <%= link_to "Show this draft pick", draft_pick %>
+      <%= link_to "Show this draft pick", league_season_draft_pick_path(@league, @season, draft_pick) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New draft pick", new_draft_pick_path %>
+<%= link_to "New draft pick", new_league_season_draft_pick_path(@league, @season) %>

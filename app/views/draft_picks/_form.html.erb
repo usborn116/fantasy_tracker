@@ -1,4 +1,4 @@
-<%= form_with(model: draft_pick) do |form| %>
+<%= form_with model: [@league, @season, draft_pick] do |form| %>
   <% if draft_pick.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(draft_pick.errors.count, "error") %> prohibited this draft_pick from being saved:</h2>
@@ -24,6 +24,16 @@
   <div>
     <%= form.label :pick, style: "display: block" %>
     <%= form.number_field :pick %>
+  </div>
+
+  <div>
+    <%= form.label :original_owner_id, style: "display: block" %>
+    <%= form.collection_select :original_owner_id, @league.teams.order(:name), :id, :name, include_blank: true %>
+  </div>
+
+  <div>
+    <%= form.label :team_id, style: "display: block" %>
+    <%= form.collection_select :team_id, @league.teams.order(:name), :id, :name, include_blank: true %>
   </div>
 
   <div>
