@@ -6,9 +6,9 @@
   <% @salaries.each do |salary| %>
     <%= render salary %>
     <p>
-      <%= link_to "Show this salary", salary %>
+      <%= link_to "Show this salary", league_player_salary_path(@league, @player, salary) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New salary", new_salary_path %>
+<%= link_to "New salary", new_league_player_salary_path(@league, @player) %>

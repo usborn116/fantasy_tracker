@@ -1,10 +1,9 @@
 class LeagueMembershipsController < ApplicationController
-  skip_before_action :set_league
   before_action :set_league_membership, only: %i[ show edit update destroy ]
 
   # GET /user_leagues or /user_leagues.json
   def index
-    @league_memberships = LeagueMembership.all
+    @league_memberships = @league.league_memberships
   end
 
   # GET /user_leagues/1 or /user_leagues/1.json
@@ -13,7 +12,7 @@ class LeagueMembershipsController < ApplicationController
 
   # GET /user_leagues/new
   def new
-    @league_membership = LeagueMembership.new
+    @league_membership = @league.league_memberships.new
   end
 
   # GET /user_leagues/1/edit
@@ -26,7 +25,7 @@ class LeagueMembershipsController < ApplicationController
 
     respond_to do |format|
       if @league_membership.save
-        format.html { redirect_to league_membership_url(@league_membership), notice: "User league was successfully created." }
+        format.html { redirect_to league_league_membership_url(@league, @league_membership), notice: "User league was successfully created." }
         format.json { render :show, status: :created, location: @league_membership }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +38,7 @@ class LeagueMembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @league_membership.update(league_membership_params)
-        format.html { redirect_to league_membership_url(@league_membership), notice: "User league was successfully updated." }
+        format.html { redirect_to league_league_membership_url(@league, @league_membership), notice: "User league was successfully updated." }
         format.json { render :show, status: :ok, location: @league_membership}
       else
         format.html { render :edit, status: :unprocessable_entity }

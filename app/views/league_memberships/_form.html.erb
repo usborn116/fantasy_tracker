@@ -1,4 +1,4 @@
-<%= form_with(model: league_membership) do |form| %>
+<%= form_with model: [@league, league_membership] do |form| %>
   <% if league_membership.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(league_membership.errors.count, "error") %> prohibited this user_league from being saved:</h2>
@@ -18,7 +18,7 @@
 
   <div>
     <%= form.label :league_id, style: "display: block" %>
-    <%= form.collection_select :league_id, League.all, :id, :name %>
+    <%= form.hidden_field :league_id, value: @league.id %>
   </div>
 
   <div>

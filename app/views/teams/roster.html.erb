@@ -8,6 +8,7 @@
 
 <% @team.players.each do |player| %>
     <%= render 'players/player', player: player %>
+    <%= link_to "this Player", league_player_path(@league, player)%>
 <% end %>
 
 <br>

@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   end
   
   resources :user_teams
-  resources :league_memberships
   resources :leagues do
+    resources :league_memberships
     resources :trade_machines
     resources :trades
     resources :seasons do
