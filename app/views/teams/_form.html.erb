@@ -18,7 +18,7 @@
 
   <%= form.fields_for :user_teams do |user_team_subform| %>
     <%= user_team_subform.label :user, style: "display: block" %>
-    <%= user_team_subform.collection_select :user_id, @league.members.order(:email), :id, :email, include_blank: true %>
+    <%= user_team_subform.collection_select :user_id, @options.order(:email), :id, :email, include_blank: true %>
   <% end %>
 
   <div>

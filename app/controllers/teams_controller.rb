@@ -2,6 +2,8 @@ require 'espn_nba_fantasy'
 
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[ roster show edit update destroy ]
+  skip_before_action :authenticate_league_admin
+  before_action :authenticate_admin_or_ownership, only: %i[ create edit new update destroy ]
 
   # GET /teams or /teams.json
   def index
@@ -25,10 +27,13 @@ class TeamsController < ApplicationController
   def new
     @team = @league.teams.new
     @team.user_teams.build
+    @options = @league.admins.include?(current_user) ? @league.members : @league.members.where(id: current_user.id)
   end
 
   # GET /teams/1/edit
   def edit
+
+    @options = @league.admins.include?(current_user) ? @league.members : @league.members.where(id: current_user.id)
   end
 
   # POST /teams or /teams.json
@@ -71,6 +76,13 @@ class TeamsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def authenticate_admin_or_ownership
+      set_team
+      unless @league.admins.include?(current_user) || @team.users.include?(current_user)
+        redirect_back fallback_location: root_path, notice: "You must be an admin or own this #{controller_name}"
+      end
+    end
+
     def set_team
       identifier = params[:team_id] || params[:id]
       @team = Team.find(identifier)

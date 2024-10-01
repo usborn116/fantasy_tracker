@@ -1,5 +1,6 @@
 class LeagueMembershipsController < ApplicationController
   before_action :set_league_membership, only: %i[ show edit update destroy ]
+  before_action :authenticate_league_admin, only: %i[ new create ]
 
   # GET /user_leagues or /user_leagues.json
   def index
