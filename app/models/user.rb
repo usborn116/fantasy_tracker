@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :leagues, through: :league_memberships, class_name: "League", foreign_key: :member_id
   has_many :user_teams
   has_many :teams, through: :user_teams
+  has_many :players, through: :teams
+  has_many :trade_proposals, through: :teams
+  has_many :received_trade_proposals, through: :teams
 
   accepts_nested_attributes_for :league_memberships
   accepts_nested_attributes_for :user_teams

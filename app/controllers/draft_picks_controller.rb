@@ -1,6 +1,7 @@
 class DraftPicksController < ApplicationController
   before_action :set_season
   before_action :set_draft_pick, only: %i[ show edit update destroy ]
+  before_action :authenticate_league_admin, only: %i[ new create edit update destroy ]
 
   # GET /draft_picks or /draft_picks.json
   def index

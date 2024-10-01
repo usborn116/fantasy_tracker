@@ -1,5 +1,6 @@
 class NbaPool::PlayersController < ApplicationController
   before_action :set_nba_pool_player, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_league_admin
   skip_before_action :set_league
   skip_before_action :authenticate_user!, only: %i[ index show ]
 
@@ -14,49 +15,27 @@ class NbaPool::PlayersController < ApplicationController
 
   # GET /nba_pool/players/new
   def new
-    @nba_pool_player = NbaPool::Player.new
+    redirect_back fallback_location: root_path, notice: "You can't manually create an NBA player"
   end
 
   # GET /nba_pool/players/1/edit
   def edit
+    redirect_back fallback_location: root_path, notice: "You can't manually update an NBA player"
   end
 
   # POST /nba_pool/players or /nba_pool/players.json
   def create
-    @nba_pool_player = NbaPool::Player.new(nba_pool_player_params)
-
-    respond_to do |format|
-      if @nba_pool_player.save
-        format.html { redirect_to nba_pool_player_url(@nba_pool_player), notice: "Player was successfully created." }
-        format.json { render :show, status: :created, location: @nba_pool_player }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @nba_pool_player.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_back fallback_location: root_path, notice: "You can't manually create an NBA player"
   end
 
   # PATCH/PUT /nba_pool/players/1 or /nba_pool/players/1.json
   def update
-    respond_to do |format|
-      if @nba_pool_player.update(nba_pool_player_params)
-        format.html { redirect_to nba_pool_player_url(@nba_pool_player), notice: "Player was successfully updated." }
-        format.json { render :show, status: :ok, location: @nba_pool_player }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @nba_pool_player.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_back fallback_location: root_path, notice: "You can't manually update an NBA player"
   end
 
   # DELETE /nba_pool/players/1 or /nba_pool/players/1.json
   def destroy
-    @nba_pool_player.destroy
-
-    respond_to do |format|
-      format.html { redirect_to nba_pool_players_url, notice: "Player was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_back fallback_location: root_path, notice: "You can't manually delete an NBA player"
   end
 
   private

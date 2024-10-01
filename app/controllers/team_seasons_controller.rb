@@ -1,6 +1,7 @@
 class TeamSeasonsController < ApplicationController
   before_action :set_team_season, only: %i[ show edit update destroy ]
   before_action :set_team
+  before_action :authenticate_league_admin, only: %i[ new create edit update destroy ]
 
   # GET /team_seasons or /team_seasons.json
   def index

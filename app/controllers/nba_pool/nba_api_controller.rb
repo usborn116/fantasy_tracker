@@ -5,7 +5,7 @@ class NbaPool::NbaApiController < ApplicationController
   include NBAPlayerAPI
 
   def index
-    players_from_api = NBAPlayerAPI.get_player_data
+    players_from_api = NBAPlayerAPI.get_player_data("#{Time.now.year}-#{(Time.now.year + 1).to_s[-2..-1]}")
     players_from_api.each do |player|
       new_player = NbaPool::Player.find_or_create_by(nba_id: player.nba_id)
       new_player.update!(

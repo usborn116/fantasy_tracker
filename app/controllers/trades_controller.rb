@@ -1,10 +1,11 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: %i[ show edit update destroy ]
-  skip_before_action :authenticate_league_admin, only: %i[ new create ]
+  skip_before_action :authenticate_league_admin, except: %i[ update edit ]
+  before_action :authenticate_admin_or_ownership, only: %i[ show index edit update destroy ]
 
   # GET /trades or /trades.json
   def index
-    @trades = Trade.all
+    @trades = current_user.trade_proposals + current_user.received_trade_proposals
   end
 
   # GET /trades/1 or /trades/1.json
@@ -13,7 +14,7 @@ class TradesController < ApplicationController
 
   # GET /trades/new
   def new
-    @trade = Trade.new
+    @trade = @league.trades.new
   end
 
   # GET /trades/1/edit
@@ -60,6 +61,14 @@ class TradesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    
+    def authenticate_admin_or_ownership
+      set_trade
+      unless @league.admins.include?(current_user) || @team.users.include?(current_user)
+        redirect_back fallback_location: root_path, notice: "You must be an admin or own this #{controller_name}"
+      end
+    end
+
     def set_trade
       @trade = Trade.find(params[:id])
     end

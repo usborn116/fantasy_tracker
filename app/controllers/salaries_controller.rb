@@ -2,6 +2,7 @@ class SalariesController < ApplicationController
   before_action :set_league
   before_action :set_player
   before_action :set_salary, only: %i[ show edit update destroy ]
+  before_action :authenticate_league_admin, only: %i[ new create edit update destroy ]
 
   # GET /salaries or /salaries.json
   def index
