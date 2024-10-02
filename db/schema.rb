@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_30_224332) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_02_171441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_224332) do
     t.datetime "updated_at", null: false
     t.bigint "player_id", null: false
     t.bigint "season_id"
+    t.boolean "waived"
     t.index ["player_id"], name: "index_salaries_on_player_id"
     t.index ["season_id"], name: "index_salaries_on_season_id"
   end
@@ -126,13 +127,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_224332) do
     t.string "incoming"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_season_id", null: false
     t.bigint "league_id"
     t.string "status"
+    t.bigint "season_id"
     t.index ["league_id"], name: "index_trades_on_league_id"
+    t.index ["season_id"], name: "index_trades_on_season_id"
     t.index ["team1_id"], name: "index_trades_on_team1_id"
     t.index ["team2_id"], name: "index_trades_on_team2_id"
-    t.index ["team_season_id"], name: "index_trades_on_team_season_id"
   end
 
   create_table "user_teams", force: :cascade do |t|
@@ -177,7 +178,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_224332) do
   add_foreign_key "team_seasons", "teams"
   add_foreign_key "teams", "leagues"
   add_foreign_key "trades", "leagues"
-  add_foreign_key "trades", "team_seasons"
+  add_foreign_key "trades", "seasons"
   add_foreign_key "trades", "teams", column: "team1_id"
   add_foreign_key "trades", "teams", column: "team2_id"
   add_foreign_key "user_teams", "teams"

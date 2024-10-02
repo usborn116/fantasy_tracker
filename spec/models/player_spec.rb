@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Player, type: :model do
   before(:context) do
-    NbaPool::Player.create!(nba_id: 1234)
+    NbaPool::Player.find_or_create_by(nba_id: 1234)
     @user = User.last || User.new(name:'Usertest', email: 'user_email@email.com', password:'userpassword')
     @user.skip_confirmation!
     @user.save
