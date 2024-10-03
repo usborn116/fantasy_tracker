@@ -1,20 +1,25 @@
 require 'espn_nba_fantasy'
 class LeaguesController < ApplicationController
-  before_action :set_league, only: %i[ show edit update destroy ]
+  before_action :set_league, only: %i[ members show edit update destroy ]
 
   # GET /leagues or /leagues.json
   def index
     @leagues = current_user.leagues
+    render json: @leagues
   end
 
   # GET /leagues/1 or /leagues/1.json
   def show
     @teams = @league.teams
+    render json: @league.as_json(include: :teams)
+  end
+
+  def members
+    render json: @league.members
   end
 
   # GET /leagues/new
   def new
-    @league = current_user.owned_leagues.new
   end
 
   # GET /leagues/1/edit
@@ -61,9 +66,6 @@ class LeaguesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_league
-      @league = League.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def league_params

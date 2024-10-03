@@ -8,38 +8,36 @@ class TeamsController < ApplicationController
   # GET /teams or /teams.json
   def index
     @teams = @league.teams
+    render json: @teams
   end
 
   # GET /teams/1 or /teams/1.json
   def show
+    render json: @team
   end
 
   def roster
-    @players = @team.players
+    @search_results = params[:last_name] != "" ? NbaPool::Player.where("last_name like ?", "#{params[:last_name]}") : []
+    render json: {team: @team.as_json(include: [:players, :draft_picks]), search_results: @search_results}
+  end
 
-    if params[:last_name] != ""
-      @nba_players = NbaPool::Player.where("last_name like ?", "#{params[:last_name]}")
-    end
-    
-    @draft_picks = @team.draft_picks
+  def user_options
+    @options = @league.admins.include?(current_user) ? @league.members : @league.members.where(id: current_user.id)
+    render json: @options
   end
 
   # GET /teams/new
   def new
-    @team = @league.teams.new
-    @team.user_teams.build
-    @options = @league.admins.include?(current_user) ? @league.members : @league.members.where(id: current_user.id)
   end
 
   # GET /teams/1/edit
   def edit
-
-    @options = @league.admins.include?(current_user) ? @league.members : @league.members.where(id: current_user.id)
   end
 
   # POST /teams or /teams.json
   def create
     @team = @league.teams.new(team_params)
+    @team.user_teams.build
 
     respond_to do |format|
       if @team.save
@@ -91,6 +89,6 @@ class TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit(:name, user_teams_attributes: [:user_id] )
+      params.require(:team).permit(:name, user_teams_attributes: [:user_id, :team_id] )
     end
 end

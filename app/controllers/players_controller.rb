@@ -5,31 +5,18 @@ class PlayersController < ApplicationController
   # GET /players or /players.json
   def index
     @players = @league.players
+    render json: @players.as_json(include: [:team, :salaries])
   end
 
   # GET /players/1 or /players/1.json
   def show
+    render json: @player.as_json(include: [:team, :salaries])
   end
 
   # GET /players/new
   def new
     
-    @team = request&.referrer&.match?("/roster") ? request.referrer.split("/")[-2] : nil
-
-    if params[:nba_player_id] != ""
-      @nba_player = NbaPool::Player.find_by(nba_id: params[:nba_player_id])
-      @player = @league.players.find_by(nba_id: params[:nba_player_id]) || @league.players.new
-      @player.assign_attributes(
-        first_name: @nba_player.first_name,
-        last_name: @nba_player.last_name,
-        position: @nba_player.position,
-        nba_id: @nba_player.nba_id,
-        slug: @nba_player.slug,
-        draft_year: @nba_player.draft_year,
-        nba_team: @nba_player.nba_team,
-        team_id: @team.to_i
-      )
-    end
+    #@team = request&.referrer&.match?("/roster") ? request.referrer.split("/")[-2] : nil
 
   end
 
@@ -40,9 +27,22 @@ class PlayersController < ApplicationController
   # POST /players or /players.json
   def create
     #@player = @team.players.new(player_params)
-
-    @player = @league.players.find_or_initialize_by(nba_id: player_params[:nba_id])
-    @player.update!(player_params)
+    if !params[:nba_player_id]
+      render json: {message: "You can only add an existing NBA player", status: :unprocessable_entity }
+      return
+    else
+      @nba_player = NbaPool::Player.find_by(nba_id: params[:nba_player_id])
+      @player = @league.players.find_or_initialize_by(nba_id: params[:nba_player_id])
+      @player.assign_attributes(
+        first_name: @nba_player.first_name,
+        last_name: @nba_player.last_name,
+        position: @nba_player.position,
+        slug: @nba_player.slug,
+        draft_year: @nba_player.draft_year,
+        nba_team: @nba_player.nba_team,
+        team_id: @team.to_i
+      )
+    end
 
     respond_to do |format|
       if @player.save!

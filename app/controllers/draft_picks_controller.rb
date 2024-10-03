@@ -5,16 +5,17 @@ class DraftPicksController < ApplicationController
 
   # GET /draft_picks or /draft_picks.json
   def index
-    @draft_picks = @season.draft_picks.all
+    @draft_picks = @season.draft_picks
+    render json: @draft_picks
   end
 
   # GET /draft_picks/1 or /draft_picks/1.json
   def show
+    render json: @draft_pick
   end
 
   # GET /draft_picks/new
   def new
-    @draft_pick = @season.draft_picks.new(year: @season.end_year)
   end
 
   # GET /draft_picks/1/edit
@@ -24,6 +25,7 @@ class DraftPicksController < ApplicationController
   # POST /draft_picks or /draft_picks.json
   def create
     @draft_pick = @season.draft_picks.new(draft_pick_params)
+    @draft_pick.assign_attributes(year: @season.end_year)
 
     respond_to do |format|
       if @draft_pick.save
@@ -71,6 +73,6 @@ class DraftPicksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def draft_pick_params
-      params.require(:draft_pick).permit(:year, :round, :pick, :original_owner_id, :team_id)
+      params.require(:draft_pick).permit(:round, :pick, :original_owner_id, :team_id)
     end
 end

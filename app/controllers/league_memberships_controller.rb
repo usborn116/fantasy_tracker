@@ -5,15 +5,16 @@ class LeagueMembershipsController < ApplicationController
   # GET /user_leagues or /user_leagues.json
   def index
     @league_memberships = @league.league_memberships
+    render json: @league_memberships
   end
 
   # GET /user_leagues/1 or /user_leagues/1.json
   def show
+    render json: @league_membership
   end
 
   # GET /user_leagues/new
   def new
-    @league_membership = @league.league_memberships.new
   end
 
   # GET /user_leagues/1/edit
@@ -22,7 +23,7 @@ class LeagueMembershipsController < ApplicationController
 
   # POST /user_leagues or /user_leagues.json
   def create
-    @league_membership = LeagueMembership.new(league_membership_params)
+    @league_membership = @league.league_memberships.new(league_membership_params)
 
     respond_to do |format|
       if @league_membership.save

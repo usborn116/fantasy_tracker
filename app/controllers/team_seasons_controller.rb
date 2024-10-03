@@ -6,15 +6,16 @@ class TeamSeasonsController < ApplicationController
   # GET /team_seasons or /team_seasons.json
   def index
     @team_seasons = @team.team_seasons
+    render json: @team_seasons.as_json(include: :season)
   end
 
   # GET /team_seasons/1 or /team_seasons/1.json
   def show
+    render json: @team_season.as_json(include: :season)
   end
 
   # GET /team_seasons/new
   def new
-    @team_season = @team.team_seasons.new
   end
 
   # GET /team_seasons/1/edit

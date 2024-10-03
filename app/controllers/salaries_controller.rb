@@ -6,16 +6,17 @@ class SalariesController < ApplicationController
 
   # GET /salaries or /salaries.json
   def index
-    @salaries = @player.salaries.all
+    @salaries = @player.salaries
+    render json: @salaries.as_json(include: [:player, :season])
   end
 
   # GET /salaries/1 or /salaries/1.json
   def show
+    render json: @salary.as_json(include: [:player, :season])
   end
 
   # GET /salaries/new
   def new
-    @salary = @player.salaries.new
   end
 
   # GET /salaries/1/edit
@@ -74,6 +75,6 @@ class SalariesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def salary_params
-      params.require(:salary).permit(:season_id, :value, :free_agent, :waiver_acquisition)
+      params.require(:salary).permit(:season_id, :value, :free_agent, :waiver_acquisition, :waived)
     end
 end

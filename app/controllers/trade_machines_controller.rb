@@ -5,15 +5,16 @@ class TradeMachinesController < ApplicationController
   # GET /trade_machines or /trade_machines.json
   def index
     @trade_machines = TradeMachine.all
+    render json: @trade_machines
   end
 
   # GET /trade_machines/1 or /trade_machines/1.json
   def show
+    render json: @trade_machine
   end
 
   # GET /trade_machines/new
   def new
-    @trade_machine = TradeMachine.new
   end
 
   # GET /trade_machines/1/edit

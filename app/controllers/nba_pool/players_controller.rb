@@ -17,27 +17,22 @@ class NbaPool::PlayersController < ApplicationController
 
   # GET /nba_pool/players/new
   def new
-    redirect_back fallback_location: root_path, notice: "You can't manually create an NBA player"
   end
 
   # GET /nba_pool/players/1/edit
   def edit
-    redirect_back fallback_location: root_path, notice: "You can't manually update an NBA player"
   end
 
   # POST /nba_pool/players or /nba_pool/players.json
   def create
-    redirect_back fallback_location: root_path, notice: "You can't manually create an NBA player"
   end
 
   # PATCH/PUT /nba_pool/players/1 or /nba_pool/players/1.json
   def update
-    redirect_back fallback_location: root_path, notice: "You can't manually update an NBA player"
   end
 
   # DELETE /nba_pool/players/1 or /nba_pool/players/1.json
   def destroy
-    redirect_back fallback_location: root_path, notice: "You can't manually delete an NBA player"
   end
 
   private

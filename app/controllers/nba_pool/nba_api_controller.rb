@@ -17,6 +17,6 @@ class NbaPool::NbaApiController < ApplicationController
         nba_team: player.current_team
       )
     end
-    redirect_back(fallback_location: '/')
+    render json: { message: "Successfully fetched NBA Player data"}
   end
 end

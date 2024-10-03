@@ -1,20 +1,21 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: %i[ show edit update destroy ]
   skip_before_action :authenticate_league_admin, except: %i[ update edit ]
-  before_action :authenticate_admin_or_ownership, only: %i[ show index edit update destroy ]
+  before_action :authenticate_admin_or_ownership, only: %i[ show edit update destroy ]
 
   # GET /trades or /trades.json
   def index
-    @trades = current_user.trade_proposals + current_user.received_trade_proposals
+    @trades = @league.admins.include?(current_user) ? @league.trades : current_user.trade_proposals + current_user.received_trade_proposals
+    render json: @trades
   end
 
   # GET /trades/1 or /trades/1.json
   def show
+    render json: @trade
   end
 
   # GET /trades/new
   def new
-    @trade = @league.trades.new
   end
 
   # GET /trades/1/edit
@@ -23,7 +24,7 @@ class TradesController < ApplicationController
 
   # POST /trades or /trades.json
   def create
-    @trade = Trade.new(trade_params)
+    @trade = @league.trades.new(trade_params)
 
     respond_to do |format|
       if @trade.save
@@ -75,6 +76,6 @@ class TradesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trade_params
-      params.require(:trade).permit(:team1_id, :team2_id, :outgoing, :incoming, :team_season_id)
+      params.require(:trade).permit(:team1_id, :team2_id, :outgoing, :incoming, :season_id)
     end
 end
