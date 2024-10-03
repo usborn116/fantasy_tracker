@@ -5,7 +5,7 @@ class LeaguesController < ApplicationController
   # GET /leagues or /leagues.json
   def index
     @leagues = current_user.leagues
-    render json: @leagues
+    render json: @leagues.as_json(include: :teams)
   end
 
   # GET /leagues/1 or /leagues/1.json

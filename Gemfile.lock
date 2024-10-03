@@ -108,6 +108,11 @@ GEM
     espn_nba_fantasy (1.0.2)
       json
       rest-client
+    factory_bot (6.5.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faraday (2.10.1)
       faraday-net_http (>= 2.0, < 3.2)
       logger
@@ -332,6 +337,7 @@ DEPENDENCIES
   devise (~> 4.9)
   dotenv
   espn_nba_fantasy (~> 1.0.2)
+  factory_bot_rails
   jbuilder
   jsbundling-rails
   nba-player-api
