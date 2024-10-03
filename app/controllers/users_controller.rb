@@ -1,4 +1,4 @@
-class UserTeamsController < ApplicationController
+class UsersController < ApplicationController
   skip_before_action :set_league
   before_action :set_user_team, only: %i[ show edit update destroy ]
 

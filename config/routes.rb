@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   scope '/api' do
 
+    get 'me', to: "users#show"
+
     devise_for :users,
       controllers: {
         sessions: 'users/sessions',
@@ -34,7 +36,7 @@ Rails.application.routes.draw do
     end
   
   end
-  
+
   root 'homepage#index'
   get '/*path' => 'homepage#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
