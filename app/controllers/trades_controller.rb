@@ -66,7 +66,7 @@ class TradesController < ApplicationController
     def authenticate_admin_or_ownership
       set_trade
       unless @league.admins.include?(current_user) || @team.users.include?(current_user)
-        redirect_back fallback_location: root_path, notice: "You must be an admin or own this #{controller_name}"
+        render json: { status: :unauthorized, message: "You must be an admin or own this #{controller_name}" }
       end
     end
 

@@ -92,3 +92,4 @@ end
 group :development, :test do
   gem 'factory_bot_rails'
 end
+gem "factory_bot", "~> 6.5"

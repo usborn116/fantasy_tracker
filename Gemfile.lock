@@ -337,6 +337,7 @@ DEPENDENCIES
   devise (~> 4.9)
   dotenv
   espn_nba_fantasy (~> 1.0.2)
+  factory_bot (~> 6.5)
   factory_bot_rails
   jbuilder
   jsbundling-rails

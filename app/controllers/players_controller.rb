@@ -26,7 +26,6 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    #@player = @team.players.new(player_params)
     if !params[:nba_player_id]
       render json: {message: "You can only add an existing NBA player", status: :unprocessable_entity }
       return
@@ -34,25 +33,22 @@ class PlayersController < ApplicationController
       @nba_player = NbaPool::Player.find_by(nba_id: params[:nba_player_id])
       @player = @league.players.find_or_initialize_by(nba_id: params[:nba_player_id])
       @player.assign_attributes(
-        first_name: @nba_player.first_name,
-        last_name: @nba_player.last_name,
-        position: @nba_player.position,
-        slug: @nba_player.slug,
-        draft_year: @nba_player.draft_year,
-        nba_team: @nba_player.nba_team,
-        team_id: @team.to_i
+        first_name: @nba_player&.first_name,
+        last_name: @nba_player&.last_name,
+        position: @nba_player&.position,
+        slug: @nba_player&.slug,
+        draft_year: @nba_player&.draft_year,
+        nba_team: @nba_player&.nba_team,
+        team_id: params[:team_id]
       )
     end
 
-    respond_to do |format|
-      if @player.save!
-        format.html { redirect_to league_player_url(@league, @player), notice: "Player was successfully added to the team." }
-        format.json { render :show, status: :created, location: @player }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
-      end
+    if @player.save
+      render json: @player, status: :created
+    else
+      render json: @player.errors, status: :unprocessable_entity
     end
+
   end
 
   # PATCH/PUT /players/1 or /players/1.json

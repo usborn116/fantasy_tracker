@@ -10,8 +10,6 @@ class Player < ApplicationRecord
     private
 
     def player_exists_in_nba
-      if !NbaPool::Player.exists?(nba_id: self.nba_id)
-        errors.add(:player, "has to be in the NBA")
-      end
+      errors.add(:player, "has to be in the NBA") unless NbaPool::Player.exists?(nba_id: self.nba_id)
     end
 end
