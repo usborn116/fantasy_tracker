@@ -53,14 +53,10 @@ class PlayersController < ApplicationController
 
   # PATCH/PUT /players/1 or /players/1.json
   def update
-    respond_to do |format|
-      if @player.update(player_params)
-        format.html { redirect_to league_player_url(@league, @player), notice: "Player was successfully updated." }
-        format.json { render :show, status: :ok, location: @player }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
-      end
+    if @player.update(player_params)
+      render json: @player
+    else
+      render json: @player.errors, status: :unprocessable_entity
     end
   end
 
@@ -68,10 +64,7 @@ class PlayersController < ApplicationController
   def destroy
     @player.destroy
 
-    respond_to do |format|
-      format.html { redirect_to league_players_url(@league), notice: "Player was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

@@ -27,27 +27,19 @@ class DraftPicksController < ApplicationController
     @draft_pick = @season.draft_picks.new(draft_pick_params)
     @draft_pick.assign_attributes(year: @season.end_year)
 
-    respond_to do |format|
-      if @draft_pick.save
-        format.html { redirect_to league_season_draft_pick_url(@league, @season, @draft_pick), notice: "Draft pick was successfully created." }
-        format.json { render :show, status: :created, location: @draft_pick }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @draft_pick.errors, status: :unprocessable_entity }
-      end
+    if @draft_pick.save
+      render json: @draft_pick, status: :created
+    else
+      render json: @draft_pick.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /draft_picks/1 or /draft_picks/1.json
   def update
-    respond_to do |format|
-      if @draft_pick.update(draft_pick_params)
-        format.html { redirect_to league_season_draft_pick_url(@league, @season, @draft_pick), notice: "Draft pick was successfully updated." }
-        format.json { render :show, status: :ok, location: @draft_pick }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @draft_pick.errors, status: :unprocessable_entity }
-      end
+    if @draft_pick.update(draft_pick_params)
+      render json: @draft_pick, status: :ok
+    else
+      render json: @draft_pick.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +47,7 @@ class DraftPicksController < ApplicationController
   def destroy
     @draft_pick.destroy
 
-    respond_to do |format|
-      format.html { redirect_to league_season_draft_picks_url(@league, @season), notice: "Draft pick was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render head :no_content
   end
 
   private

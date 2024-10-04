@@ -26,14 +26,10 @@ class TradesController < ApplicationController
   def create
     @trade = @league.trades.new(trade_params)
 
-    respond_to do |format|
-      if @trade.save
-        format.html { redirect_to trade_url(@trade), notice: "Trade was successfully created." }
-        format.json { render :show, status: :created, location: @trade }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @trade.errors, status: :unprocessable_entity }
-      end
+    if @trade.save
+      render json: @trade, status: :created
+    else
+      render json: @trade.errors, status: :unprocessable_entity
     end
   end
 
@@ -41,11 +37,9 @@ class TradesController < ApplicationController
   def update
     respond_to do |format|
       if @trade.update(trade_params)
-        format.html { redirect_to trade_url(@trade), notice: "Trade was successfully updated." }
-        format.json { render :show, status: :ok, location: @trade }
+        render json: @trade, status: :ok
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @trade.errors, status: :unprocessable_entity }
+        render json: @trade.errors, status: :unprocessable_entity
       end
     end
   end
@@ -54,10 +48,7 @@ class TradesController < ApplicationController
   def destroy
     @trade.destroy
 
-    respond_to do |format|
-      format.html { redirect_to trades_url, notice: "Trade was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

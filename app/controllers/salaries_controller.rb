@@ -27,27 +27,19 @@ class SalariesController < ApplicationController
   def create
     @salary = @player.salaries.new(salary_params)
 
-    respond_to do |format|
-      if @salary.save
-        format.html { redirect_to league_player_salary_url(@league, @player, @salary), notice: "Salary was successfully created." }
-        format.json { render :show, status: :created, location: @salary }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @salary.errors, status: :unprocessable_entity }
-      end
+    if @salary.save
+      render json: @salary, status: :created
+    else
+      render json: @salary.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /salaries/1 or /salaries/1.json
   def update
-    respond_to do |format|
-      if @salary.update(salary_params)
-        format.html { redirect_to league_player_salary_url(@league, @player, @salary), notice: "Salary was successfully updated." }
-        format.json { render :show, status: :ok, location: @salary }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @salary.errors, status: :unprocessable_entity }
-      end
+    if @salary.update(salary_params)
+      render json: @salary, status: :ok
+    else
+      render json: @salary.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +47,7 @@ class SalariesController < ApplicationController
   def destroy
     @salary.destroy
 
-    respond_to do |format|
-      format.html { redirect_to league_player_salaries_url(@league, @player), notice: "Salary was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

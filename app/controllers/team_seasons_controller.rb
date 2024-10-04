@@ -26,27 +26,19 @@ class TeamSeasonsController < ApplicationController
   def create
     @team_season = @team.team_seasons.new(team_season_params)
 
-    respond_to do |format|
-      if @team_season.save
-        format.html { redirect_to league_team_team_season_url(@league, @team, @team_season), notice: "Team season was successfully created." }
-        format.json { render :show, status: :created, location: @team_season }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @team_season.errors, status: :unprocessable_entity }
-      end
+    if @team_season.save
+      render json: @team_season, status: :created
+    else
+      render json: @team_season.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /team_seasons/1 or /team_seasons/1.json
   def update
-    respond_to do |format|
-      if @team_season.update(team_season_params)
-        format.html { redirect_to team_season_url(@team_season), notice: "Team season was successfully updated." }
-        format.json { render :show, status: :ok, location: @team_season }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @team_season.errors, status: :unprocessable_entity }
-      end
+    if @team_season.update(team_season_params)
+      render json: @team_season, status: :ok
+    else
+      render json: @team_season.errors, status: :unprocessable_entity
     end
   end
 
@@ -54,10 +46,7 @@ class TeamSeasonsController < ApplicationController
   def destroy
     @team_season.destroy
 
-    respond_to do |format|
-      format.html { redirect_to team_seasons_url, notice: "Team season was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

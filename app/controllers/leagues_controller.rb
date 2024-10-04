@@ -30,27 +30,19 @@ class LeaguesController < ApplicationController
   def create
     @league = current_user.owned_leagues.new(league_params)
 
-    respond_to do |format|
-      if @league.save
-        format.html { redirect_to league_url(@league), notice: "League was successfully created." }
-        format.json { render :show, status: :created, location: @league }
-      else
-        format.html { render :new, status: :unprocessable_entity, notice: "#{@league.errors}" }
-        format.json { render json: @league.errors, status: :unprocessable_entity }
-      end
+    if @league.save
+      render json: @league, status: :created
+    else
+      render json: @league.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /leagues/1 or /leagues/1.json
   def update
-    respond_to do |format|
-      if @league.update(league_params)
-        format.html { redirect_to league_url(@league), notice: "League was successfully updated." }
-        format.json { render :show, status: :ok, location: @league }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @league.errors, status: :unprocessable_entity }
-      end
+    if @league.update(league_params)
+      render json: @league, status: :ok
+    else
+      render json: @league.errors, status: :unprocessable_entity
     end
   end
 
@@ -58,10 +50,7 @@ class LeaguesController < ApplicationController
   def destroy
     @league.destroy
 
-    respond_to do |format|
-      format.html { redirect_to leagues_url, notice: "League was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

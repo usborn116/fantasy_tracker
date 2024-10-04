@@ -39,27 +39,19 @@ class TeamsController < ApplicationController
     @team = @league.teams.new(team_params)
     @team.user_teams.build
 
-    respond_to do |format|
-      if @team.save
-        format.html { redirect_to league_team_url(@league, @team), notice: "Team was successfully created." }
-        format.json { render :show, status: :created, location: @team }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    if @team.save
+      render json: @team, status: :created
+    else
+      render json: @team.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /teams/1 or /teams/1.json
   def update
-    respond_to do |format|
-      if @team.update(team_params)
-        format.html { redirect_to league_team_url(@league, @team), notice: "Team was successfully updated." }
-        format.json { render :show, status: :ok, location: @team }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    if @team.update(team_params)
+      render json: @team, status: :ok
+    else
+      render json: @team.errors, status: :unprocessable_entity
     end
   end
 
@@ -67,10 +59,7 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
 
-    respond_to do |format|
-      format.html { redirect_to league_teams_url(@league), notice: "Team was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

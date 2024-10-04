@@ -25,27 +25,19 @@ class LeagueMembershipsController < ApplicationController
   def create
     @league_membership = @league.league_memberships.new(league_membership_params)
 
-    respond_to do |format|
       if @league_membership.save
-        format.html { redirect_to league_league_membership_url(@league, @league_membership), notice: "User league was successfully created." }
-        format.json { render :show, status: :created, location: @league_membership }
+        render json: @league_membership, status: :created
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @league_membership.errors, status: :unprocessable_entity }
+        render json: @league_membership.errors, status: :unprocessable_entity
       end
-    end
   end
 
   # PATCH/PUT /user_leagues/1 or /user_leagues/1.json
   def update
-    respond_to do |format|
-      if @league_membership.update(league_membership_params)
-        format.html { redirect_to league_league_membership_url(@league, @league_membership), notice: "User league was successfully updated." }
-        format.json { render :show, status: :ok, location: @league_membership}
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @league_membership.errors, status: :unprocessable_entity }
-      end
+    if @league_membership.update(league_membership_params)
+      render json: @league_membership, status: :ok
+    else
+      render json: @league_membership.errors, status: :unprocessable_entity
     end
   end
 
@@ -53,10 +45,7 @@ class LeagueMembershipsController < ApplicationController
   def destroy
     @league_membership.destroy
 
-    respond_to do |format|
-      format.html { redirect_to league_memberships_url, notice: "User league was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render head :no_content
   end
 
   private

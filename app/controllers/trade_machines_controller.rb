@@ -25,38 +25,27 @@ class TradeMachinesController < ApplicationController
   def create
     @trade_machine = TradeMachine.new(trade_machine_params)
 
-    respond_to do |format|
-      if @trade_machine.save
-        format.html { redirect_to trade_machine_url(@trade_machine), notice: "Trade machine was successfully created." }
-        format.json { render :show, status: :created, location: @trade_machine }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @trade_machine.errors, status: :unprocessable_entity }
-      end
+    if @trade_machine.save
+      render json: @trade_machine, status: :created
+    else
+      render json: @trade_machine.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /trade_machines/1 or /trade_machines/1.json
   def update
-    respond_to do |format|
       if @trade_machine.update(trade_machine_params)
-        format.html { redirect_to trade_machine_url(@trade_machine), notice: "Trade machine was successfully updated." }
-        format.json { render :show, status: :ok, location: @trade_machine }
+        render json: @trade_machine, status: :ok
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @trade_machine.errors, status: :unprocessable_entity }
+        render json: @trade_machine.errors, status: :unprocessable_entity
       end
-    end
   end
 
   # DELETE /trade_machines/1 or /trade_machines/1.json
   def destroy
     @trade_machine.destroy
 
-    respond_to do |format|
-      format.html { redirect_to trade_machines_url, notice: "Trade machine was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
