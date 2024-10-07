@@ -6,20 +6,22 @@ import {
 import { App } from "./App";
 import { Error } from "./Error";
 import { Player } from "./Player";
+import { Login } from "./Login";
 
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <App />,
     errorElement: <Error />,
     children: [
       {
-        path: "",
-        element: <App />
-      },
-      {
         path: "nba_pool/:player_id",
         element: <Player />
-      }
+      },
+      {
+        path: "login",
+        element: <Login />
+      },
         
     ]
   }
