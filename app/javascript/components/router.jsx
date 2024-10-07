@@ -7,6 +7,7 @@ import { App } from "./App";
 import { Error } from "./Error";
 import { Player } from "./Player";
 import { Login } from "./Login";
+import { Confirmation  } from "./Confirmation";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />
+      },
+      {
+        path: "confirmation/:id/:token",
+        element: <Confirmation />
       },
         
     ]

@@ -7,7 +7,11 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   private
   
   def respond_with(resource, _opts = {})
-    render json: resource
+    if resource.errors.empty?
+      render json: resource, status: :ok
+    else
+      render json: resource.errors, status: :unprocessable_entity
+    end
   end
   
 end
