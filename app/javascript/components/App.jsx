@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from "react";
 import * as ReactDOM from "react-dom/client";
-import { Player } from "./Player";
 import { getData } from "../helpers/api_methods";
 import { Logout } from "./Logout";
 import { Outlet } from "react-router-dom";

@@ -8,7 +8,6 @@ class TeamSeasonsController < ApplicationController
     @team_seasons = @team.team_seasons#.as_json(include: [:season, :team])
     res = []
     @team_seasons.each do |ts|
-      p ts
       t = ts.as_json(:include => [:season, :team])
       t['roster_size'] = ts.roster_size
       t['soft_cap_room'] = ts.soft_cap_room

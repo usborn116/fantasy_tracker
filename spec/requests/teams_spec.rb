@@ -24,7 +24,7 @@ RSpec.describe "Teams", type: :request do
         get "/api/leagues/#{@league.id}/teams/#{@team.id}/roster", params: { last_name: "Last" }
         expect(response.status).to eq(200)
         res = JSON.parse(response.body)
-        expect(res['team']).to include(@team.as_json(include: [:players, :draft_picks]))
+        expect(res['team']).to include(@team.as_json(include: [{players: {include: :team}}, :draft_picks]))
         expect(res['search_results']).to include(@nba_player.as_json)
       end
 
@@ -33,7 +33,7 @@ RSpec.describe "Teams", type: :request do
         get "/api/leagues/#{@league.id}/teams/#{@team.id}/roster"
         expect(response.status).to eq(200)
         res = JSON.parse(response.body)
-        expect(res['team']).to include(@team.as_json(include: [:players, :draft_picks]))
+        expect(res['team']).to include(@team.as_json(include: [{players: {include: :team}}, :draft_picks]))
         expect(res['search_results']).to eq([])
         
       end
