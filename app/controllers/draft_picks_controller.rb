@@ -6,7 +6,7 @@ class DraftPicksController < ApplicationController
   # GET /draft_picks or /draft_picks.json
   def index
     @draft_picks = @season.draft_picks
-    render json: @draft_picks
+    render json: @draft_picks.as_json(include: [:original_owner, :team, :season])
   end
 
   # GET /draft_picks/1 or /draft_picks/1.json

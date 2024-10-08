@@ -5,30 +5,14 @@ import {
 } from "react-router-dom";
 import { App } from "./App";
 import { Error } from "./Error";
-import { Player } from "./Player";
-import { Login } from "./Login";
-import { Confirmation  } from "./Confirmation";
+import { children } from "./children";
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <Error />,
-    children: [
-      {
-        path: "nba_pool/:player_id",
-        element: <Player />
-      },
-      {
-        path: "login",
-        element: <Login />
-      },
-      {
-        path: "confirmation/:id/:token",
-        element: <Confirmation />
-      },
-        
-    ]
+    children: children
   }
 ])
 

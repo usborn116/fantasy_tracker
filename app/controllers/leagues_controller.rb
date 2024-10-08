@@ -4,8 +4,8 @@ class LeaguesController < ApplicationController
 
   # GET /leagues or /leagues.json
   def index
-    @leagues = current_user.leagues
-    render json: @leagues.as_json(include: :teams)
+    @leagues = current_user.leagues.select(:id, :league_id, :name)
+    render json: @leagues.as_json(include: [:teams, :members])
   end
 
   # GET /leagues/1 or /leagues/1.json
@@ -15,7 +15,7 @@ class LeaguesController < ApplicationController
   end
 
   def members
-    render json: @league.members
+    render json: @league.members.as_json(include: :teams)
   end
 
   # GET /leagues/new

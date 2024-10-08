@@ -1,0 +1,13 @@
+.left-bar{
+    display: flex;
+}
+
+.right-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav{
+    color: white;
+    padding: 0 15vw 0 15vw;
+}

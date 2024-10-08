@@ -5,8 +5,24 @@ class TeamSeasonsController < ApplicationController
 
   # GET /team_seasons or /team_seasons.json
   def index
-    @team_seasons = @team.team_seasons
-    render json: @team_seasons.as_json(include: :season)
+    @team_seasons = @team.team_seasons#.as_json(include: [:season, :team])
+    res = []
+    @team_seasons.each do |ts|
+      p ts
+      t = ts.as_json(:include => [:season, :team])
+      t['roster_size'] = ts.roster_size
+      t['soft_cap_room'] = ts.soft_cap_room
+      t['hard_cap_room'] = ts.hard_cap_room
+      t['max_RFA_bid'] = ts.max_RFA_bid
+      t['max_UFA_bid'] = ts.max_UFA_bid
+      t['incoming_picks'] = ts.incoming_picks
+      t['dead_cap'] = ts.dead_cap
+      res << t
+    #:max_RFA_bid, :max_UFA_bid, :incoming_picks, :dead_cap])
+    end
+    render json: res
+    #render json: @team_seasons.as_json(include: [:season, :team]), methods: [:roster_size, :soft_cap_room, :hard_cap_room,
+    #:max_RFA_bid, :max_UFA_bid, :incoming_picks, :dead_cap]
   end
 
   # GET /team_seasons/1 or /team_seasons/1.json

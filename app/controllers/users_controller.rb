@@ -5,9 +5,9 @@ class UsersController < ApplicationController
   # GET /me
   def show
     if current_user
-      render json: current_user.as_json(include: [:teams, :leagues, :owned_leagues])
+      render json: current_user.attributes.slice('name', 'email').as_json(include: [:teams, :leagues, :owned_leagues])
     else
-      render json: { message: 'not logged in', status: :unauthorized }
+      render json: nil
     end
   end
 

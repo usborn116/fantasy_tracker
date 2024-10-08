@@ -8,7 +8,7 @@ class TeamsController < ApplicationController
   # GET /teams or /teams.json
   def index
     @teams = @league.teams
-    render json: @teams
+    render json: @teams.as_json(include: [:users, :league])
   end
 
   # GET /teams/1 or /teams/1.json
@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
 
   def roster
     @search_results = params[:last_name] != "" ? NbaPool::Player.where("last_name like ?", "#{params[:last_name]}") : []
-    render json: {team: @team.as_json(include: [:players, :draft_picks]), search_results: @search_results}
+    render json: {team: @team.as_json(include: [{players: {include: :team}}, :draft_picks]), search_results: @search_results}
   end
 
   def user_options

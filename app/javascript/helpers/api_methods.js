@@ -7,7 +7,7 @@ export const errorHandler = async (error, endpoint, setError) => {
 const getHelper = async (endpoint, include = null) => {
     const param_mark = endpoint.match(/\?/) ? '&' : '?'
     const included_associations = include ? `${param_mark}include=${include.join(',')}` : ''
-    const response=await fetch(`/api/${endpoint}${included_associations}`)
+    const response = await fetch(`/api/${endpoint}${included_associations}`)
     if (response.status > 400){
         throw new Error(`${response.status}: ${response.statusText}`)
     }

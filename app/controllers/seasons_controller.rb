@@ -5,7 +5,7 @@ class SeasonsController < ApplicationController
   # GET /seasons or /seasons.json
   def index
     @seasons = @league.seasons
-    render json: @seasons
+    render json: @seasons.as_json(include: :league)
   end
 
   # GET /seasons/1 or /seasons/1.json

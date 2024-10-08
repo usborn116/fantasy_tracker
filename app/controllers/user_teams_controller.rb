@@ -5,7 +5,7 @@ class UserTeamsController < ApplicationController
   # GET /user_teams or /user_teams.json
   def index
     @user_teams = current_user.teams
-    render json: @user_teams
+    render json: @user_teams.as_json(include: [:users, :league])
   end
 
   # GET /user_teams/1 or /user_teams/1.json
