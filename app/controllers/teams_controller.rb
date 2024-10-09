@@ -17,7 +17,7 @@ class TeamsController < ApplicationController
   end
 
   def roster
-    @search_results = params[:last_name] != "" ? NbaPool::Player.where("last_name like ?", "#{params[:last_name]}") : []
+    @search_results = params[:last_name] ? NbaPool::Player.where("LOWER(last_name) like ?", "#{params[:last_name].downcase}%").distinct : []
     render json: {team: @team.as_json(include: [{players: {include: :team}}, :draft_picks]), search_results: @search_results}
   end
 
