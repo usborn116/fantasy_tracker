@@ -37,6 +37,17 @@ const putPostData = async (endpoint, type, info) => {
     }) 
 }
 
+export const newData = async (endpoint, info, setError)=>{
+    try{
+        const response=await putPostData(endpoint, 'post', info)
+        const data=await response.json()
+        if(!response.ok) throw data.error
+        return data
+    } catch (error) {
+        return await errorHandler(error, endpoint, setError)
+    }
+}
+
 export const logIn = async(endpoint, info, setError) => {
     try{
         const response=await putPostData(endpoint, 'post', info)

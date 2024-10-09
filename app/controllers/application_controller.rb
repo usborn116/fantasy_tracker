@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def authenticate_league_admin
     set_league
     unless @league.admins.include?(current_user)
-      redirect_back fallback_location: root_path, notice: "You must be a league admin to perform this action"
+      render json: { message: "You must be a league admin to perform this action", status: :unauthorized }
     end
   end
 
