@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getData, logout } from "../helpers/api_methods";
+import { Button } from "@mui/material";
 
 export const Logout = ({setUser, setLoading}) => {
 
@@ -15,6 +16,6 @@ export const Logout = ({setUser, setLoading}) => {
         //navigate('/')
     }
 
-    return <button data-testid='logout-button' className="button" onClick={handleLogout}>Log Out</button>
+    return <Button variant="outlined" className="button" onClick={handleLogout}>Log Out</Button>
 
 };

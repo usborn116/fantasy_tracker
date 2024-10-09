@@ -17,6 +17,6 @@ class NbaPool::NbaApiController < ApplicationController
         nba_team: player.current_team
       )
     end
-    render json: { message: "Successfully fetched NBA Player data"}
+    render json: { message: "Successfully fetched NBA Player data on #{Date.today.to_s}", status: :ok}
   end
 end
