@@ -1,7 +1,7 @@
 export const errorHandler = async (error, endpoint, setError) => {
-    const response = await error?.message?.match(/is not valid JSON/) ? {error: true, message: `${endpoint} not found`} : error
-    await setError(() => response)
-    return {error: true, message: String(response)}
+    const response = await error?.message
+    await setError(() => `${error.status}: ${response}`)
+    return { message: String(response) }
 }
 
 const getHelper = async (endpoint, include = null) => {
@@ -39,9 +39,9 @@ const putPostData = async (endpoint, type, info) => {
 
 export const newData = async (endpoint, info, setError)=>{
     try{
-        const response=await putPostData(endpoint, 'post', info)
-        const data=await response.json()
-        if(!response.ok) throw data.error
+        const response = await putPostData(endpoint, 'post', info)
+        const data = await response.json()
+        if (!response.ok || response.status > 399 ) throw data
         return data
     } catch (error) {
         return await errorHandler(error, endpoint, setError)

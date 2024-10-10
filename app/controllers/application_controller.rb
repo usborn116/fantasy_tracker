@@ -6,13 +6,17 @@ class ApplicationController < ActionController::Base
   before_action :set_league
   before_action :authenticate_league_admin, only: %i[ edit update destroy ]
 
+  NotAuthorized = Class.new(StandardError)
+
+  rescue_from ApplicationController::NotAuthorized do |e|
+    render json: { message: "You are not an admin of this league", status: 403 }, status: 403
+  end
+
   private 
 
   def authenticate_league_admin
     set_league
-    unless @league.admins.include?(current_user)
-      render json: { message: "You must be a league admin to perform this action", status: :unauthorized }
-    end
+    raise ApplicationController::NotAuthorized.new() unless @league.admins.include?(current_user)
   end
 
   def set_league

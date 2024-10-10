@@ -1,13 +1,10 @@
 import React from "react";
 
-export const Error = ( {status = null}) => {
+export const Error = ( {message = null}) => {
 
     return (
         <div className="error">
-            {status ?
-                String(status) :
-                'Nothing Here!'
-            }   
+            { String(message) ?? 'Nothing Here!' }   
         </div>
     )
 }
