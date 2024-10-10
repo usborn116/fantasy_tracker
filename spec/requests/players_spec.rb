@@ -28,7 +28,7 @@ RSpec.describe "Players", type: :request do
         get "/api/leagues/#{@league.id}/players/#{@player.id}"
         expect(response.status).to eq(200)
         res = JSON.parse(response.body)
-        expect(res).to eq(@player.as_json(include: [:team, :salaries]))
+        expect(res).to eq(@player.as_json(include: [:team, {salaries: { include: [:season, :player]}}]))
       end
     
     end
