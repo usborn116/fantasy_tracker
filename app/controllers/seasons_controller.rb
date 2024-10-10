@@ -10,7 +10,7 @@ class SeasonsController < ApplicationController
 
   # GET /seasons/1 or /seasons/1.json
   def show
-    render json: @season
+    render json: @season.as_json(include: [:league, {draft_picks: {include: [:original_owner, :team, :season]}}, { salaries: {include: [:player, :season]}}])
   end
 
   # GET /seasons/new

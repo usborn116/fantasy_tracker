@@ -27,7 +27,7 @@ export const Navbar = ({setUser, user, setLoading, setError}) => {
             :
             <>
             <div className="left-bar">
-                <Link to="/" className="button">HOME</Link>
+                <Link to="/me" className="button">Me</Link>
             </div>
             <div className="center-bar">
                         <h1>Welcome to Fantasy Tracker {user?.name ?? user?.email ?? ''}</h1>

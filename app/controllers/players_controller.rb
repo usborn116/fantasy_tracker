@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
 
   # GET /players/1 or /players/1.json
   def show
-    render json: @player.as_json(include: [:team, :salaries])
+    render json: @player.as_json(include: [:team, {salaries: { include: [:season, :player]}}])
   end
 
   # GET /players/new

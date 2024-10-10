@@ -12,8 +12,6 @@ export const Members = ({ passedData = null }) => {
         getData(`leagues/${league_id}/members`, setData)
     }, [])
 
-    console.log(data)
-
     const headers = <RowHelper items={['Name', 'Email', 'Teams']} />
 
     const list = data?.map(object => <RowHelper key={object.id} items={[

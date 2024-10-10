@@ -17,16 +17,21 @@ class TeamSeasonsController < ApplicationController
       t['incoming_picks'] = ts.incoming_picks
       t['dead_cap'] = ts.dead_cap
       res << t
-    #:max_RFA_bid, :max_UFA_bid, :incoming_picks, :dead_cap])
     end
     render json: res
-    #render json: @team_seasons.as_json(include: [:season, :team]), methods: [:roster_size, :soft_cap_room, :hard_cap_room,
-    #:max_RFA_bid, :max_UFA_bid, :incoming_picks, :dead_cap]
   end
 
   # GET /team_seasons/1 or /team_seasons/1.json
   def show
-    render json: @team_season.as_json(include: :season)
+    t = @team_season.as_json(:include => [:season, :team])
+    t['roster_size'] = @team_season.roster_size
+    t['soft_cap_room'] = @team_season.soft_cap_room
+    t['hard_cap_room'] = @team_season.hard_cap_room
+    t['max_RFA_bid'] = @team_season.max_RFA_bid
+    t['max_UFA_bid'] = @team_season.max_UFA_bid
+    t['incoming_picks'] = @team_season.incoming_picks
+    t['dead_cap'] = @team_season.dead_cap
+    render json: t
   end
 
   # GET /team_seasons/new

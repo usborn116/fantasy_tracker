@@ -26,6 +26,11 @@ body {
     display: none;
 }
 
+.clickable:hover{
+    background-color: aquamarine;
+    border-radius: 10px;
+}
+
 root {
     min-height: 100vh;
     display: flex;

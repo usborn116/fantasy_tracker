@@ -12,7 +12,10 @@ export const Leagues = () => {
 
     const headers = <RowHelper items={['League ID', 'Name']} />
 
-    const list = data?.map(object => <RowHelper key={object.id} items={[object.league_id, object.name]} />)
+    const list = data?.map(object => <RowHelper
+        key={object.id}
+        items={[object.league_id, object.name]}
+        url={`/leagues/${object.id}`} />)
 
     return (
         data &&

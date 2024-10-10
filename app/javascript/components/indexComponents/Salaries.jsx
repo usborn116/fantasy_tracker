@@ -12,13 +12,16 @@ export const Salaries = ({ passedData = null }) => {
         getData(`leagues/${league_id}/players/${player_id}/salaries`, setData)
     }, [])
 
-    console.log(data)
-
     const headers = <RowHelper items={['Player', 'Season', 'Value', 'Free Agent', 'Waiver Acquisition?', 'Waived?']} />
 
-    const list = data?.map(object => <RowHelper key={object.id} items={[
-        `${object.player.first_name} ${object.player.last_name}`, object.season.start_year, object.value,
-        object.free_agent, object.waiver_acquisition, object.waived ]} />)
+    const list = data?.map(object => <RowHelper
+        url={`/leagues/${league_id}/players/${object?.player?.id}`}
+        key={object.id}
+        items={[`${object.player.first_name} ${object.player.last_name}`,
+            object.season.start_year, object.value,
+            object.free_agent, object.waiver_acquisition,
+            object.waived]}
+    />)
 
     return (
         data &&

@@ -13,7 +13,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
-    render json: @team
+    render json: @team.as_json(include: [:users, :league, { draft_picks: {include: [:original_owner, :team, :season] }}])
   end
 
   def roster
